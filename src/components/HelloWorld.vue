@@ -1,17 +1,20 @@
 <template>
   <div class="hello">
     <h2>
-      <a  class="logo"  href="https://www.mytokenpocket.vip/"><img src="https://dapp.mytokenpocket.vip/TokenPocket-logo-h.png"></a> 
-      <span class="title">EOS公钥私钥生成器</span>
+      本工具修改自<a  class="logo"  href="https://www.mytokenpocket.vip/"><img src="https://dapp.mytokenpocket.vip/TokenPocket-logo-h.png"></a> 
+      <span class="title"><a href="https://eos-key.mytokenpocket.vip/" target="_blank">EOS公钥私钥生成器</a></span>
     </h2>
-    <p>本工具用来随机生成一组EOS公钥私钥，生成过程可断网离线操作，<a href="https://github.com/tokenbankteam/eos-key" target="_blank">代码已开源</a>。</p>
+    <p>本工具用来随机生成一组EOSIO公钥私钥，生成过程可断网离线操作，<a href="https://github.com/eosio-key/eos-key" target="_blank">代码已开源</a>。</p>
     <p><strong>请一定注意记录并保管好您的私钥信息</strong></p>
-    <button @click="generate">生成EOS公钥和私钥</button>
+    <button @click="generate">生成公钥和私钥</button>
     <div v-if="privateKey">
-      <p>公钥: {{publicKey}}</p>
-      <p>私钥: {{privateKey}}</p>
+      <p>私钥:       {{privateKey}}</p><br/>
+      <p>EOS公钥:    {{'EOS'+rawpublicKey}}</p>
+      <p>FIBOS公钥:  {{'FO'+rawpublicKey}}</p>
+      <p>ENU公钥:    {{'ENU'+rawpublicKey}}</p>
+      <p>GOC公钥:    {{'GOC'+rawpublicKey}}</p>
     </div>
-    <a class="ribbon" target="_blank" href="https://github.com/tokenbankteam/eos-key/"><img style="position: absolute; top: 0; left: 0; border: 0; width: 100px" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <a class="ribbon" target="_blank" href="https://github.com/eosio-key/eos-key"><img style="position: absolute; top: 0; left: 0; border: 0; width: 100px" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
   </div>
 </template>
 
@@ -23,14 +26,15 @@ export default {
   data () {
     return {
       privateKey: '',
-      publicKey: ''
+      rawpublicKey: ''
     }
   },
   methods: {
     generate() {
       ecc.randomKey().then(privateKey => {
         this.privateKey = privateKey;
-        this.publicKey = ecc.privateToPublic(privateKey);
+        const publicKey = ecc.privateToPublic(privateKey);
+        this.rawpublicKey = publicKey.slice(3)
       })
     }
   }

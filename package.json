@@ -1,19 +1,21 @@
 {
   "name": "eos-genekey",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "chendatony31 <31647753@qq.com>",
-  "private": true,
+  "description": "EOSIO key generater",
+  "author": "eosio-key",
+  "private": false,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "eosjs-ecc": "^4.0.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
